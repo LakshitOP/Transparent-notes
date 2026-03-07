@@ -8,12 +8,12 @@ function createWindow(){
     win = new BrowserWindow({
         width: 420,
         height: 540,
-
+        x: 1096,
+        y: 181,
         frame: false,
         transparent: true,
         resizable: false,
         type: "desktop",
-        skipTaskbar: true,
 
         webPreferences:{
             nodeIntegration: true,
@@ -30,7 +30,6 @@ function createWindow(){
         // Instead of minimizing, just blur the window
         // It will remain visible on the desktop
     })
-
     // Keep window visible on desktop
     win.on('show', () => {
         win.focus()

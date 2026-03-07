@@ -7,10 +7,27 @@ const completedContainer = document.getElementById("completed")
 const input = document.getElementById("newTask")
 
 const clearBtn = document.getElementById("clearCompleted")
+const deleteAllBtn = document.getElementById("deleteAll")
 
 const completedPanel = document.getElementById("completedPanel")
 const completedToggle = document.getElementById("completedToggle")
 const completedCount = document.getElementById("completedCount")
+
+let isCompletedDrawerOpen = false
+
+function syncCompletedDrawer(count){
+    const hasCompletedTasks = count > 0
+
+    completedToggle.style.display = hasCompletedTasks ? "flex" : "none"
+    completedPanel.style.display = hasCompletedTasks ? "block" : "none"
+
+    if(!hasCompletedTasks){
+        isCompletedDrawerOpen = false
+    }
+
+    completedPanel.classList.toggle("open", isCompletedDrawerOpen && hasCompletedTasks)
+    completedToggle.classList.toggle("rotated", isCompletedDrawerOpen && hasCompletedTasks)
+}
 
 function save(){
     fs.writeFileSync("tasks.json", JSON.stringify(tasks, null, 2))
@@ -73,14 +90,7 @@ function render(){
     const completedCount_value = tasks.filter(t => t.done).length
     completedCount.innerText = completedCount_value
     
-    // Show/hide completed panel based on whether there are completed tasks
-    if(completedCount_value === 0){
-        completedToggle.style.display = "none"
-        completedPanel.style.display = "none"
-    } else {
-        completedToggle.style.display = "flex"
-        completedPanel.style.display = "block"
-    }
+    syncCompletedDrawer(completedCount_value)
 }
 
 input.addEventListener("keydown", (e) => {
@@ -106,8 +116,8 @@ input.addEventListener("keydown", (e) => {
 })
 
 completedToggle.onclick = () => {
-    completedPanel.classList.toggle("open")
-    completedToggle.classList.toggle("rotated")
+    isCompletedDrawerOpen = !isCompletedDrawerOpen
+    syncCompletedDrawer(tasks.filter(t => t.done).length)
 }
 
 clearBtn.onclick = () => {
@@ -117,6 +127,19 @@ clearBtn.onclick = () => {
     save()
     render()
 
+}
+
+deleteAllBtn.onclick = () => {
+    if(tasks.length === 0){
+        return
+    }
+
+    tasks = []
+    isCompletedDrawerOpen = false
+    input.value = ""
+
+    save()
+    render()
 }
 
 render()
