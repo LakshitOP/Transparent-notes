@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h3>Tasks</h3>
+
+<div id="tasks"></div>
+
+<input id="newTask" placeholder="Add new task...">
+
+<h3 id="completedToggle">Completed</h3>
+
+<div id="completedPanel">
+
+<div id="completedStats">
+<span id="completedCount">0</span> tasks done
+</div>
+
+<div id="completed"></div>
+
+<button id="clearCompleted">Clear all</button>
+
+</div>
+
+</div>
+
+<script src="node_modules/sortablejs/Sortable.min.js"></script>
+<script src="renderer.js"></script>
+
+</body>
+</html>

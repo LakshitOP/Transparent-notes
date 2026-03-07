@@ -1,0 +1,17 @@
+{
+  "name": "trasnparent-notes",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "electron": "^40.8.0",
+    "sortablejs": "^1.15.7"
+  }
+}
